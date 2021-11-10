@@ -1,0 +1,40 @@
+﻿@using AdvantShop.Customers
+@model AdvantShop.ViewModel.StaticPage.StaticPageViewModel
+@{
+    var editLink = CustomerContext.CurrentCustomer.CustomerRole == Role.Administrator ||
+               (CustomerContext.CurrentCustomer.CustomerRole == Role.Moderator && CustomerContext.CurrentCustomer.HasRoleAction(RoleAction.Store));
+}
+<div class="mobile-content-padding">
+    <div class="row">
+        <div class="col-xs-12 col-md col-p-v root-staticPage-custom">
+            <div class="staticpage-title page-title">
+                <h1 @Html.InplaceMeta(Model.Id, AdvantShop.SEO.MetaType.StaticPage)>@Html.GetPageH1()</h1>
+            </div>
+            @Html.Action("BreadCrumbs", "Common", new { breadCrumbs = Model.BreadCrumbs })
+            @if (editLink)
+            {
+                <div class="m-b-sm">
+                    <a target="_blank" href="@UrlService.GetUrl("adminv2/staticpages/edit/" + Model.Id)">@T("StaticPage.Index.EditInAdminArea")</a>
+                </div>
+            }
+            <div class="staticpage-content" @Html.InplaceStaticPage(Model.Id, StaticPageInplaceField.PageText)>
+                @Html.Raw(Model.Text)
+            </div>
+            @Html.Action("SocialButtons", "Common")
+        </div>
+        @if (Model.SubPages.Count > 0)
+        {
+            <div class="col-xs-12 col-md-3 col-p-v child-staticPage-custom">
+                <div class="news-item-r-title">
+                    @Html.Raw(Model.Title)
+                </div>
+                @foreach (var page in Model.SubPages)
+                {
+                    <div class="news-categories">
+                        <a class="news-menu-link link-text-decoration-none" href="@Url.AbsoluteRouteUrl("StaticPage", new {url=page.UrlPath})">@Html.Raw(page.Title)</a>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

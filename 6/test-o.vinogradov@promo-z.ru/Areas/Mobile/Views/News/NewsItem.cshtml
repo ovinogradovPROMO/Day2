@@ -1,0 +1,48 @@
+﻿@using AdvantShop.Customers
+@model AdvantShop.ViewModel.News.NewsItemViewModel
+@{
+    var editLink = CustomerContext.CurrentCustomer.CustomerRole == Role.Administrator ||
+               (CustomerContext.CurrentCustomer.CustomerRole == Role.Moderator && CustomerContext.CurrentCustomer.HasRoleAction(RoleAction.Store));
+}
+<div class="mobile-container-fluid">
+    <div class="row news-item">
+        <div class="col-xs-12 col-sm-9 col-p-v">
+            <div class="page-title-row news-item-title-row">
+                <div class="news-item-title page-title">
+                    <h1 class="main-title main-title--m-t-n" @Html.InplaceMeta(Model.NewsItem.NewsId, AdvantShop.SEO.MetaType.News)>
+                        @Html.Raw(Html.GetPageH1())
+                    </h1>
+                    @if (Model.ViewRss)
+                    {
+                        <a href="news/rss" class="icon-rss-squared-before news-rss-link link-text-decoration-none" target="_blank" title="RSS"></a>
+                    }
+                </div>
+            </div>
+            @Html.Action("BreadCrumbs", "Common", new { breadCrumbs = Model.BreadCrumbs })
+            @if (editLink)
+            {
+                <div class="m-b-sm">
+                    <a target="_blank" href="@UrlService.GetUrl("adminv2/news/edit/" + Model.NewsItem.NewsId)">@T("News.NewsItem.EditInAdminArea")</a>
+                </div>
+            }
+            <div class="subheader">
+                @Model.NewsItem.AddingDate.ToShortDateTime()
+            </div>
+            <div class="news-item-content" @Html.InplaceNews(Model.NewsItem.NewsId, NewsInplaceField.TextToPublication)>
+                @Html.Raw(Model.NewsItem.TextToPublication)
+            </div>
+            @Html.Action("SocialButtons", "Common")
+            <a href="@Url.AbsoluteRouteUrl("NewsHome")" class="link-return">@T("News.NewsItem.BackToNews")</a>
+            @Html.StaticBlock("NewsItem")
+            @Html.RenderModules("news_item_after", new { newsItem = Model.NewsItem })
+        </div>
+        <div class="col-xs-12 col-sm-3 col-p-v">
+            @Html.Partial("_NewsCategoryList", Model.NewsCategoriesList)
+            @Html.Partial("NewsProducts", Model.NewsProducts)
+            @Html.Action("NewsSubscriptionSlim")
+            <div class="vk-news-block">
+                @Html.StaticBlock("BlockInNews")
+            </div>
+        </div>
+    </div>
+</div>

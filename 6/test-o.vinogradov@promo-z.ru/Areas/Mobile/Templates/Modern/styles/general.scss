@@ -1,0 +1,82 @@
+.mobile-tabs-vertical .tabs-header-item-link {
+    background-color: #3c3c3c;
+}
+.order-history-details-products {
+        .cart-mini-name-link, .cart-mini-count-text, .cart-mini-count-value, .cart-mini-price-text, .cart-mini-price-value {
+        color: #ddd;
+    }
+}
+input[type="text"], input[type="password"], input[type="search"], input[type="email"], input[type="number"], input[type="tel"], input[type="url"], textarea{
+    color: #4e4e4e
+}
+
+.cart-full-mobile-remove:before {
+    filter: invert(1);
+}
+.products-view-name-default:after, .products-view-name-slim:after, .products-specials-category:after{
+    background: none;
+}
+@media(max-width:500px) {
+    .table-responsive-scroll-wrap .prod-text {
+        width: 90%
+    }
+    /*для блоков "Доставка", модуля "комплекты товаров" в мобилке скрыла, ибо съезжали влево*/
+    /*.block-exuding-row {margin-left: -1.33333em;}*/
+}
+
+.catalog-search-btn {
+    top: 0;
+    right: .5rem;
+}
+
+.catalog-search-placeholder input {
+    padding-right: 42px;
+}
+
+.autocompleter-list-item.autocompleter-list-item-footer {
+    border: 0;
+}
+
+.autocompleter-sub {
+    left: 13px !important;
+    right: 13px !important;
+}
+
+.js-click-out > input {
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.mobile-tabs-vertical .tabs-header-item-link {
+    background-color: #96969a;
+}
+
+.color-viewer-item {
+    font-size: 12px;
+    line-height: 1;
+}
+
+
+.cart-popup-modal .cart-popup-related-block .carousel-colors-wrap {
+    font-size: inherit;
+}
+
+.cart-popup-related-block .carousel-nav .carousel-nav-inside {
+    color: #e8e8e8;
+    font-size: 7px;
+}
+
+.cart-link {
+    color: white;
+}
+
+#layout .ONwrap {
+    color: white;
+    text-shadow: 1px 0px 0.25rem #000;
+}
+
+#layout .ONtoday, #layout .ONdate {
+    color: #d7d7d7;
+}
+.catalog-view .prod-name:after, .catalog-list .prod-name:after {
+    background: none;
+}

@@ -1,0 +1,117 @@
+﻿@using System.Globalization;
+@using AdvantShop.Helpers;
+@using AdvantShop;
+@using AdvantShop.Customers;
+@using AdvantShop.Orders;
+@using AdvantShop.Core.Services.Localization;
+@{
+    var curentCustomer = CustomerContext.CurrentCustomer;
+    bool isRegistered = curentCustomer.RegistredUser;
+    bool isShowAdminLink = curentCustomer.CustomerRole == Role.Administrator || curentCustomer.CustomerRole == Role.Moderator;
+    bool isDemoEnabled = Demo.IsDemoEnabled;
+    bool isShowWishList = SettingsDesign.WishListVisibility;
+    string wishCount = isShowWishList ? string.Format("{0} {1}",
+            ShoppingCartService.CurrentWishlist.Count == 0 ? "" : ShoppingCartService.CurrentWishlist.Count.ToString(CultureInfo.InvariantCulture),
+            Strings.Numerals(ShoppingCartService.CurrentWishlist.Count,
+                LocalizationService.GetResource("Common.TopPanel.WishList0"),
+                LocalizationService.GetResource("Common.TopPanel.WishList1"),
+                LocalizationService.GetResource("Common.TopPanel.WishList2"),
+                LocalizationService.GetResource("Common.TopPanel.WishList5"))) : string.Empty;
+    var structure = isDemoEnabled && CommonHelper.GetCookieString("structure").IsNotEmpty() ? CommonHelper.GetCookieString("structure").TryParseEnum<SettingsDesign.eMainPageMode>() : SettingsDesign.MainPageMode;
+}
+
+<div class="container container-fluid site-head-inner @(structure == SettingsDesign.eMainPageMode.Default ? "site-head-inner--slim" :"")">
+    <div class="row middle-xs @(SettingsDesign.SearchBlockLocation == SettingsDesign.eSearchBlockLocation.CatalogMenu ? "": "flex-nowrap")">
+        <div class="col-xs-3 site-head-logo-block site-head-logo">
+            @Html.Action("Logo", "Common")
+        </div>
+        <div class="col-xs-8 site-head-menu-col">
+            @Html.StaticBlock("headerCenterBlock", "header-static-block-center")
+
+            @if (structure == SettingsDesign.eMainPageMode.TwoColumns)
+            {
+            @Html.Action("MenuBlock", "Common")
+            }
+            else
+            {
+            @Html.Action("MenuTop", "Common")
+            if(SettingsDesign.SearchBlockLocation == SettingsDesign.eSearchBlockLocation.TopMenu)
+            {
+            <div class="row">
+                <div class="col-xs-10">
+                    @Html.Action("SearchBlock", "Search")
+                </div>
+            </div>
+            }
+            }
+
+
+            @*@Html.Action("MenuTop", "Common")
+            @if (SettingsDesign.SearchBlockLocation == SettingsDesign.eSearchBlockLocation.TopMenu)
+            {
+            @Html.Action("SearchBlock", "Search")
+            }*@
+            @Html.StaticBlock("headerCenterBlockAlt", "header-static-block-center-alt")
+        </div>
+        <div class="col-xs site-head-phone-col">
+            @Html.StaticBlock("headerRightBlock", "header-static-block-right")
+            <div class="user--header" data-submenu-container="{'checkOrientation': true, 'type': 'classic', submenuDirection: 'below', blockOrientation: 'body'}">
+                <div data-submenu-parent>
+                    <div class="ng-hide menu-general-submenu cs-bg-5 user-submenu--header" data-submenu data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-general-sub-column">
+                            @if (!isRegistered)
+                            {
+                                <div class="menu-general-sub-row"><a class="user-submenu__link--header menu-general-category-parent " href="@Url.AbsoluteRouteUrl("Login")">@T("Common.TopPanel.Login")</a></div>
+                                <div class="menu-general-sub-row"><a class="user-submenu__link--header menu-general-category-parent " href="@Url.AbsoluteRouteUrl("Registration")">@T("Common.TopPanel.Registration")</a></div>
+                            }
+                            else
+                            {
+                                <div class="menu-general-sub-row"><a class="user-submenu__link--header menu-general-category-parent " href="@Url.AbsoluteRouteUrl("MyAccount")">@T("Common.TopPanel.MyAccount")</a></div>
+                                <div class="menu-general-sub-row"><a class="user-submenu__link--header menu-general-category-parent " href="@Url.AbsoluteRouteUrl("Logout")">@T("Common.TopPanel.LogOut")</a></div>
+                            }
+                            @if (isShowAdminLink)
+                            {
+                                var cookie = CommonHelper.GetCookie("oldadmin");
+                                var isOldAdmin = cookie != null && cookie.Value == "true";
+                                <div class="menu-general-sub-row"><a class="user-submenu__link--header menu-general-category-parent " href="@UrlService.GetUrl(isOldAdmin ? "admin" : "adminv2")">@T("Common.TopPanel.Administration")</a></div>
+                            }
+                            @if (isDemoEnabled && !isShowAdminLink)
+                            {
+                                <div class="menu-general-sub-row">
+                                    <a class="user-submenu__link--header menu-general-category-parent " href="" data-modal-open="modalDemoMode">@T("Common.TopPanel.Administration")</a>
+                                    <span hidden data-demo-modal data-demo-modal-id="modalDemoMode" data-demo-modal-url="https://www.advantshop.net"></span>
+                                </div>
+                            }
+
+                            @if (isShowWishList)
+                            {
+                                <div class="menu-general-sub-row">
+                                    <a class="user-submenu__link--header menu-general-category-parent " href="@Url.AbsoluteRouteUrl("WishList")">@T("Common.TopPanel.WishList"): @wishCount</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <a href="" class="user-link--header">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="23" height="29" xmlns:xlink="http://www.w3.org/1999/xlink"
+                             viewBox="0 0 680 800" style="enable-background:new 0 0 680 800;" xml:space="preserve">
+                        <path fill="currentColor" d="M337.6,431.1h5.3c48.5-0.8,87.8-17.9,116.8-50.5c63.8-71.9,53.2-195.2,52-206.9
+			                c-4.1-88.3-45.9-130.5-80.3-150.3C405.7,8.6,375.7,0.7,342.2,0h-2.8c-18.4,0-54.5,3-89.1,22.7c-34.8,19.7-77.2,62-81.3,150.9
+			                c-1.2,11.8-11.8,135,52,206.9C249.8,413.2,289.1,430.2,337.6,431.1z M213.2,177.8c0-0.5,0.2-1,0.2-1.3
+			                c5.5-118.8,89.8-131.5,125.9-131.5h2c44.7,1,120.8,19.2,125.9,131.5c0,0.5,0,1,0.2,1.3c0.2,1.2,11.8,113.8-40.9,173.1
+			                c-20.9,23.5-48.7,35.1-85.3,35.5h-1.7c-36.4-0.3-64.4-11.9-85.1-35.5C201.8,291.9,213,178.8,213.2,177.8z M680.7,635.5V635
+			                c0-1.3-0.2-2.7-0.2-4.1c-1-32.8-3.1-109.5-75-134c-0.5-0.2-1.2-0.3-1.7-0.5c-74.7-19.1-136.8-62.1-137.5-62.6
+			                c-10.1-7.1-24-4.6-31.1,5.5c-7.1,10.1-4.6,24,5.5,31.1c2.8,2,68.7,47.9,151.2,69.1c38.6,13.8,42.9,55,44.1,92.8
+			                c0,1.5,0,2.8,0.2,4.1c0.2,14.9-0.8,37.9-3.5,51.2c-26.8,15.2-132,67.9-292,67.9c-159.4,0-265.2-52.8-292.2-68.1
+			                c-2.7-13.3-3.8-36.3-3.5-51.2c0-1.3,0.2-2.7,0.2-4.1c1.2-37.8,5.5-79,44.1-92.8c82.5-21.2,148.4-67.3,151.2-69.1
+			                c10.1-7.1,12.6-21,5.5-31.1c-7.1-10.1-21-12.6-31.1-5.5c-0.7,0.5-62.5,43.6-137.5,62.6c-0.7,0.2-1.2,0.3-1.7,0.5
+			                c-71.9,24.7-74,101.4-75,134c0,1.5,0,2.8-0.2,4.1v0.5c-0.2,8.6-0.3,52.8,8.4,75c1.7,4.3,4.6,8,8.6,10.4
+			                c5,3.3,124.1,79.2,323.4,79.2c199.3,0,318.4-76,323.4-79.2c3.8-2.5,7-6.1,8.6-10.4C681,688.3,680.8,644.1,680.7,635.5z" />
+                    </svg>
+                    </a>
+                </div>
+            </div>
+            @Html.Action("ShoppingCart", "Cart")
+            @Html.RenderModules("site_top_right")
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@using AdvantShop.Core
+@using AdvantShop.Design
+
+@{
+
+    var prefix = !string.IsNullOrEmpty(SettingsDesign.MobileTemplate) ? "_" + SettingsDesign.MobileTemplate.ToLower() : "";
+    var bundleNameMobileCss = "mobile_head_" + prefix + ".css";
+    Html.AddBundles(new List<string>
+    ()
+{
+"~/" + DesignService.GetDesign("background") + "/styles/styles.css"
+}, bundleNameMobileCss);
+}

@@ -1,0 +1,4 @@
+.prod-cell .prod-photo{
+width:100%;
+}
+.prod-cell .prod-name:after{content:none;}

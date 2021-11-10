@@ -1,0 +1,15 @@
+﻿@using AdvantShop.Design
+@using AdvantShop.Configuration
+@{
+    var prefix = !string.IsNullOrEmpty(SettingsDesign.MobileTemplate) ? "_" + SettingsDesign.MobileTemplate.ToLower() : "";
+
+    var bundleNameMobileCss = "mobile" + prefix + ".css";
+    var bundleNameMobileJs = "mobile" + prefix + ".js";
+
+    Html.AddBundles(new List<string>()
+    {
+        "~/templates/" + SettingsDesign.Template + "/Areas/Mobile/Templates/Modern/styles/general.css"
+
+    }, bundleNameMobileCss);
+
+}

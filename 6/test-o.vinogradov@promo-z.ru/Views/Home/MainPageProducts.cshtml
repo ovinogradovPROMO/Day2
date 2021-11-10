@@ -1,0 +1,131 @@
+﻿@model AdvantShop.ViewModel.Home.MainPageProductsViewModel
+
+@functions{
+    HtmlString HightLight(string value)
+    {
+        const string tpl = "<span class=\"products-specials__title products-specials__title--left\">{0}</span> <span class=\"products-specials__title products-specials__title--right\">{1}</span>";
+        const string tpl2 = "<span class=\"products-specials__title products-specials__title--left\">{0}</span><span class=\"products-specials__title products-specials__title--right\">{1}</span>";
+        var array = value.Split(' ').ToList();
+        var index = array.Count() / 2;
+        var result = string.Empty;
+
+        if (index >= 1)
+        {
+            result = String.Format(tpl, array.Take(index).AggregateString(" "), array.Skip(index).AggregateString(" "));
+        }
+        else
+        {
+            result = String.Format(tpl2, value.Substring(0, value.Length / 2), value.Substring(value.Length / 2, value.Length - (value.Length / 2)));
+        }
+
+        return new HtmlString(result);
+    }
+}
+@Html.RenderModules("mainpage_products_before")
+<div class="products-specials-container">
+    @if (Model.BestSellers.Products.Count > 0)
+    {
+        <article class="products-specials-block products-specials-best cs-br-1">
+            <header class="products-specials-header">
+                <div class="h2 products-specials-best-h">@HightLight(T("Home.MainPageProducts.BestSellersTitle").ToString())</div>
+            </header>
+            <div class="products-specials__more"><a href="@Url.AbsoluteRouteUrl("ProductList", new { type = "best"})" class="products-specials-more">@T("Home.MainPageProducts.BestSellersAllLink")</a></div>
+            <div class="carousel carousel-horizontal">
+                <div class="carousel-inner">
+                    <div class="row products-view products-view-tile"
+                         data-carousel-class="products-specials__carousel"
+                         data-carousel
+                         data-visible-max="@(Model.BestSellers.CountProductsInLine + 1)"
+                         data-visible-min="@Model.BestSellers.CountProductsInLine"
+                         data-stretch="false"
+                         >
+                        @{
+                            Model.BestSellers.DisplayPhotoPreviews = false;
+                        }
+                        @Html.Partial("_ProductView", Model.BestSellers)
+                    </div>
+                </div>
+            </div>
+        </article>
+    }
+    @if (Model.NewProducts.Products.Count > 0)
+    {
+        <article class="products-specials-block products-specials-new cs-br-1">
+            <header class="products-specials-header">
+                <div class="h2 products-specials-new-h">@HightLight(T("Home.MainPageProducts.NewProductsTitle").ToString())</div>
+            </header>
+
+            <div class="products-specials__more">
+                <a href="@Url.AbsoluteRouteUrl("ProductList", new { type = !Model.NewArrivals ? "new" : "newarrivals" })" class="products-specials-more">@T("Home.MainPageProducts.NewProductsAllLink")</a>
+            </div>
+            
+            <div class="carousel carousel-horizontal">
+                <div class="carousel-inner">
+                    <div class="row products-view products-view-tile"
+                         data-carousel-class="products-specials__carousel"
+                         data-carousel
+                         data-visible-max="@(Model.BestSellers.CountProductsInLine + 1)"
+                         data-visible-min="@Model.BestSellers.CountProductsInLine"
+                         data-stretch="false"
+                         >
+                        @{
+                            Model.NewProducts.DisplayPhotoPreviews = false;
+                        }
+                        @Html.Partial("_ProductView", Model.NewProducts)
+                    </div>
+                </div>
+            </div>
+        </article>
+    }
+    @if (Model.Sales.Products.Count > 0)
+    {
+        <article class="products-specials-block products-specials-discount cs-br-1">
+            <header class="products-specials-header">
+                <div class="h2 products-specials-discount-h">@HightLight(T("Home.MainPageProducts.SalesTitle").ToString())</div>
+            </header>
+            <div class="products-specials__more"><a href="@Url.AbsoluteRouteUrl("ProductList", new { type = "sale"})" class="products-specials-more">@T("Home.MainPageProducts.SalesAllLink")</a></div>
+            <div class="carousel carousel-horizontal">
+                <div class="carousel-inner">
+                    <div class="row products-view products-view-tile"
+                         data-carousel-class="products-specials__carousel"
+                         data-carousel
+                         data-visible-max="@(Model.BestSellers.CountProductsInLine + 1)"
+                         data-visible-min="@Model.BestSellers.CountProductsInLine"
+                         data-stretch="false"
+                         >
+                        @{
+                            Model.Sales.DisplayPhotoPreviews = false;
+                        }
+                        @Html.Partial("_ProductView", Model.Sales)
+                    </div>
+                </div>
+            </div>
+        </article>
+    }
+    @foreach (var productList in Model.ProductLists)
+    {
+        <article class="products-specials-block products-specials-list cs-br-1">
+            <header class="products-specials-header">
+                <div class="h2">@Html.Raw(HightLight(productList.Title))</div>
+            </header>
+            <div class="products-specials__more"><a href="@Url.AbsoluteRouteUrl("ProductList", new { type = "list", list = productList.Id })" class="products-specials-more">@T("Home.MainPageProducts.AllProducts")</a></div>
+            <div class="carousel carousel-horizontal">
+                <div class="carousel-inner">
+                    <div class="row products-view products-view-tile"
+                         data-carousel-class="products-specials__carousel"
+                         data-carousel
+                         data-visible-max="@(Model.BestSellers.CountProductsInLine + 1)"
+                         data-visible-min="@Model.BestSellers.CountProductsInLine"
+                         data-stretch="false"
+                         >
+                        @{
+                            productList.DisplayPhotoPreviews = false;
+                        }
+                        @Html.Partial("_ProductView", productList)
+                    </div>
+                </div>
+            </div>
+        </article>
+    }
+</div>
+@Html.RenderModules("mainpage_products")

@@ -1,0 +1,122 @@
+﻿@using AdvantShop.ViewModel.Shared
+@using AdvantShop.Core.Services.Configuration.Settings
+@using AdvantShop.Catalog;
+@using AdvantShop.FilePath
+@using AdvantShop.Core.Services.Catalog
+@model AdvantShop.Areas.Mobile.Models.Catalog.ProductViewItemMobileModel
+@{ var product = Model.Product;
+    var productUrl = Url.AbsoluteRouteUrl("Product", new { url = product.UrlPath });
+    var nameHeight = SettingsMobile.CountLinesProductName * 18;
+    var imgSrc = Model.ProductImageType == ProductImageType.Middle ? product.Photo.ImageSrcMiddle() : product.Photo.ImageSrcSmall();}
+
+
+<div class="mobile-product-view-item cs-t-1"
+     style="width:@(Model.BlockProductPhotoHeight)px;"
+     data-product-view-item data-offer-id="@product.OfferId" data-product-id="@product.ProductId"
+     data-offer="{Amount: @product.Amount.ToInvariantString(), RoundedPrice: @product.RoundedPrice.ToInvariantString(), OfferId: @product.OfferId}">
+    <div class="mobile-product-view-item-image-wrap" style="height: @(Model.BlockProductPhotoHeight)px;">
+        <a href="@productUrl" data-ng-href="{{productViewItem.getUrl('@productUrl')}}" class="mobile-product-view-item-image-block">
+            <img src="@imgSrc"
+                 data-ng-src="{{productViewItem.getPictureByViewMode2([{PathSmall: '@product.Photo.ImageSrcSmall()', PathMiddle: '@product.Photo.ImageSrcMiddle()'}], '@Model.ProductImageType.ToString().ToLower()', '@Model.LazyLoadType.ToString()')}}"
+                 @Html.Raw(Model.LazyLoadType == eLazyLoadType.Default ? "data-qazy data-qazy-on-loaded=\"productViewItem.lazyLoadImg()\"" : "")
+                 alt="@Html.Raw(product.Photo.Alt)"
+                 title="@Html.Raw(product.Photo.Title)"
+                 onerror=" this.src = '@PhotoService.GetNoPhotoPath(Model.ProductImageType)'"
+                 style="max-height:@(Model.BlockProductPhotoHeight)px;"
+                 class="mobile-product-view-item-image">
+
+            <div class="products-view-labels">
+                <div class="products-view-label ng-hide availability" ng-show="productViewItem.offer != null && productViewItem.offer.Amount <= 0">
+                    <span class="products-view-label-inner not-available">@T("Product.NotAvailable")</span>
+                </div>
+                @if (!Model.HideMarkers && (product.Recomend || product.Sales || product.Bestseller || product.New || product.TotalDiscount.HasValue))
+                {
+    @Html.RenderLabels(product.Recomend, product.Sales, product.Bestseller, product.New, product.TotalDiscount)}
+
+            </div>
+
+            @if (product.Gifts)
+            {
+<div class="prod-gift-icon"></div>}
+        </a>
+    </div>
+    <div class="mobile-prod-info-wrap mobile-product-view-item__wrap">
+        <div class="mobile-product-view-item__inner">
+
+            @if (Model.DisplayRating)
+            {
+        <div class="products-view-rating">
+            @Html.Partial("_Rating", new RatingViewModel(product.ManualRatio ?? product.Ratio))
+        </div>}
+
+            @if (Model.DisplayProductArtNo)
+            {
+        <div class="mobile-prod-artno cs-t-7">@product.ArtNo</div>}
+
+            <a href="@productUrl" class="prod-name text-floating" data-ng-href="{{productViewItem.getUrl('@productUrl')}}" style="height: @(nameHeight)px;">@Html.Raw(product.Name)</a>
+            
+            <script>
+                    angular.module("@product.ProductId-app", []).controller("ProgressBar", ['$scope', function ($scope) { }])
+                    /**/
+                    .directive('progressbar', [function () {
+                        return {
+                            scope: {
+                                'progress': '=progressbar'
+                            },
+                            controller: function ($scope, $element) {
+
+                                $scope.$watch(function () {
+                                    $element.progressbar({ value: $scope.progress })
+                                })
+                            }
+                        }
+                    }])
+            </script>
+            <div ng-app="@product.ProductId-app" ng-controller="ProgressBar" class="">
+                <div progressbar=43 class=""></div>
+            </div>
+            @if (Model.ProductViewMode.ToString() == "List")
+            {
+        @Html.Action("GetSTR", "Catalog", new { id = product.ProductId })} @*Если не лист то не выводить*@
+            @if (!Model.HidePrice)
+            {
+        <div class="price cs-l-8">@Html.Raw(product.PreparedPrice)</div> }
+    else
+    {
+        <div class="text-instead-of-price cs-l-8">@Html.Raw(Model.TextInsteadOfPrice)</div>}
+
+            @if (!string.IsNullOrEmpty(product.Colors))
+            {
+        <div class="mobile-product-view-item__colors-wrap">
+            <div class="mobile-product-view-item__colors-inner">
+                @Html.Partial("_Colors", new ColorsViewModel()
+                {
+                    NgColors = product.Colors,
+                    ColorWidth = Model.ColorImageWidth,
+                    ColorHeight = Model.ColorImageHeight,
+                    SelectedColors = Model.SelectedColors,
+                    ColorsViewMode = SettingsCatalog.ColorsViewMode
+                })
+            </div>
+        </div> }
+    else
+    {
+        <div class="products-view-colors-empty products-view-list-element-hidden products-view-table-element-hidden" style="height: @(Model.ColorImageHeight)px"></div>}
+
+            @if (SettingsMobile.ShowAddButton && !Model.HidePrice)
+            {
+                var showBuyButton = ((product.RoundedPrice > 0 && product.Amount > 0) || Model.AllowBuyOutOfStockProducts);
+                var showPreOrderButton = Model.DisplayPreOrderButton && (product.RoundedPrice == 0 || product.Amount <= 0) && product.AllowPreorder && product.OfferId != 0 && !Model.AllowBuyOutOfStockProducts;
+
+        <div class="mobile-product-view-item__btn-wrap">
+            @if (showBuyButton)
+            {
+
+        <a href="@productUrl" data-source="mobile" data-ng-href="{{productViewItem.getUrl('@productUrl')}}" data-cart-add data-offer-id="0" data-product-id="@product.ProductId" data-amount="@product.MinAmount.ToInvariantString()" class="btn btn-small btn-buy icon-bag-before products-view-buy">@Model.BuyButtonText</a>}
+            @if (showPreOrderButton)
+            {
+        <a href="@Url.RouteUrl("PreOrder", new {offerid = product.OfferId})" data-cart-preorder data-offer-id="productViewItem.offer.OfferId" class="btn btn-small btn-action icon-bag-before products-view-buy">@Model.PreOrderButtonText</a>}
+        </div>}
+        </div>
+    </div>
+</div>

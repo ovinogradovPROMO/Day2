@@ -1,0 +1,9 @@
+/*do not delete this file*/
+body {
+	background-image: url(../images/steel.jpg);
+}
+@media(max-device-width: 736px) {
+    body {
+        background-size: auto;
+    }
+}

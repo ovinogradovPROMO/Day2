@@ -1,0 +1,31 @@
+﻿@if(!TemplateSettingsProvider.Items["ShowAmountInProductCart"].TryParseBool())
+{
+<style>
+    .details-amount {
+        display: none;
+    }
+</style>
+}
+
+@{
+    Html.AddBundles(new List<string>
+    ()
+    {
+    "~/templates/" + SettingsDesign.Template + "/styles/common/block.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/common/headers.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/views/compareproducts.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/product-categories.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/products-specials.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/news-block.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/gift.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/footer.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/footer-menu.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/mobileOverlap.css",
+    "~/templates/" + SettingsDesign.Template + "/scripts/_partials/cart/styles/cart.css",
+    "~/templates/" + SettingsDesign.Template + "/scripts/_partials/subscribe/styles/subscribe.css",
+    "~/templates/" + SettingsDesign.Template + "/scripts/_partials/checkorder/styles/check-order.css",
+    "~/templates/" + SettingsDesign.Template + "/scripts/_partials/catalog-filter/styles/catalogFilter.css",
+    "~/templates/" + SettingsDesign.Template + "/scripts/_partials/colors-viewer/styles/colors-viewer.css",
+    "~/templates/" + SettingsDesign.Template + "/scripts/_partials/shipping/styles/shipping.css"
+    }, "all.css");
+    }

@@ -1,0 +1,9 @@
+/*do not delete this file*/
+body {
+	background-image: url(https://avatanplus.com/files/resources/original/5ea6b159acb8d171bb24c66b.jpg);
+}
+@media(max-device-width: 736px) {
+    body {
+        background-size: auto;
+    }
+}

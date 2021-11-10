@@ -1,0 +1,48 @@
+﻿@model AdvantShop.ViewModel.Catalog.ChangeModeViewModel
+<div class="products-view-variants" data-product-view-change-mode data-name="@Model.Name" data-view-mode="@Model.ViewMode">
+    <a href="" title="@T("Catalog.ChangeMode.Tile")"
+       class="products-view-variants-item products-view-variants-tile cs-l-3"
+       data-ng-click="changeMode.setView(changeMode.name, 'tile')"
+       data-ng-class="{'products-view-variants-selected  cs-br-1': changeMode.current === 'tile'}">
+        <svg width="22" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             viewBox="0 0 612 612">
+            <path fill="currentColor" d="M270.8,0.5H20.9C9.6,0.5,0.5,9.6,0.5,20.9v249.9c0,11.3,9.1,20.4,20.4,20.4h249.9c11.3,0,20.4-9.1,20.4-20.4
+			V20.9C291.2,9.6,282.1,0.5,270.8,0.5z M342.2,291.2h249.9c11.3,0,20.4-9.1,20.4-20.4h0V20.9c0-11.3-9.1-20.4-20.4-20.4H342.2
+			c-11.3,0-20.4,9.1-20.4,20.4v249.9C321.8,282.1,330.9,291.2,342.2,291.2z M270.8,321.8H20.9c-11.3,0-20.4,9.1-20.4,20.4v249.9
+			c0,11.3,9.1,20.4,20.4,20.4h249.9c11.3,0,20.4-9.1,20.4-20.4V342.2C291.2,330.9,282.1,321.8,270.8,321.8z M612.5,342.2
+			c0-11.3-9.1-20.4-20.4-20.4H342.2c-11.3,0-20.4,9.1-20.4,20.4v249.9c0,11.3,9.1,20.4,20.4,20.4h249.9c11.3,0,20.4-9.1,20.4-20.4h0
+			V342.2z"></path>
+        </svg>
+    </a>
+
+    <a href="" title="@T("Catalog.ChangeMode.List")"
+       class="products-view-variants-item products-view-variants-list cs-l-3"
+       data-ng-click="changeMode.setView(changeMode.name, 'list')"
+       data-ng-class="{'products-view-variants-selected  cs-br-1': changeMode.current === 'list'}">
+        <svg width="22" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             viewBox="0 0 612 510" style="enable-background:new 0 0 612 510;" xml:space="preserve">
+            <path fill="currentColor" d="M586.5,0h-561C10.2,0,0,10.2,0,25.5v51C0,91.8,10.2,102,25.5,102h561c15.3,0,25.5-10.2,25.5-25.5v-51
+			    C612,10.2,601.8,0,586.5,0z M586.5,204h-561C10.2,204,0,214.2,0,229.5v51C0,295.8,10.2,306,25.5,306h561
+			    c15.3,0,25.5-10.2,25.5-25.5v-51C612,214.2,601.8,204,586.5,204z M586.5,408h-561C10.2,408,0,418.2,0,433.5v51
+			    C0,499.8,10.2,510,25.5,510h561c15.3,0,25.5-10.2,25.5-25.5v-51C612,418.2,601.8,408,586.5,408z"></path>
+        </svg>
+    </a>
+
+    <a href="" title="@T("Catalog.ChangeMode.Table")"
+       class="products-view-variants-item products-view-variants-table cs-l-3"
+       data-ng-click="changeMode.setView(changeMode.name, 'table')"
+       data-ng-class="{'products-view-variants-selected  cs-br-1': changeMode.current === 'table'}">
+        <svg width="22" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             viewBox="0 0 612 510" style="enable-background:new 0 0 612 510;" xml:space="preserve">
+        <path fill="currentColor" d="M76.5,0h-51C10.2,0,0,10.2,0,25.5v51C0,91.8,10.2,102,25.5,102h51c15.3,0,25.5-10.2,25.5-25.5v-51
+			C102,10.2,91.8,0,76.5,0z M76.5,204h-51C10.2,204,0,214.2,0,229.5v51C0,295.8,10.2,306,25.5,306h51c15.3,0,25.5-10.2,25.5-25.5
+			v-51C102,214.2,91.8,204,76.5,204z M76.5,408h-51C10.2,408,0,418.2,0,433.5v51C0,499.8,10.2,510,25.5,510h51
+			c15.3,0,25.5-10.2,25.5-25.5v-51C102,418.2,91.8,408,76.5,408z M586.5,0h-357C214.2,0,204,10.2,204,25.5v51
+			c0,15.3,10.2,25.5,25.5,25.5h357c15.3,0,25.5-10.2,25.5-25.5v-51C612,10.2,601.8,0,586.5,0z M586.5,204h-357
+			c-15.3,0-25.5,10.2-25.5,25.5v51c0,15.3,10.2,25.5,25.5,25.5h357c15.3,0,25.5-10.2,25.5-25.5v-51C612,214.2,601.8,204,586.5,204z
+			 M586.5,408h-357c-15.3,0-25.5,10.2-25.5,25.5v51c0,15.3,10.2,25.5,25.5,25.5h357c15.3,0,25.5-10.2,25.5-25.5v-51
+			C612,418.2,601.8,408,586.5,408z"></path>
+
+</svg>
+    </a>
+</div>

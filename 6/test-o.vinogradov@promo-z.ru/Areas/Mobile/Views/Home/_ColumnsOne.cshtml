@@ -1,0 +1,76 @@
+﻿@using AdvantShop.CMS;
+@functions{
+    HtmlString HightLight(string value)
+    {
+        const string tpl = "<span class=\"products-specials__title products-specials__title--left\">{0}</span> <span class=\"products-specials__title products-specials__title--right\">{1}</span>";
+        const string tpl2 = "<span class=\"products-specials__title products-specials__title--left\">{0}</span><span class=\"products-specials__title products-specials__title--right\">{1}</span>";
+        var array = value.Split(' ').ToList();
+        var index = array.Count() / 2;
+        var result = string.Empty;
+
+        if (index >= 1)
+        {
+            result = String.Format(tpl, array.Take(index).AggregateString(" "), array.Skip(index).AggregateString(" "));
+        }
+        else
+        {
+            result = String.Format(tpl2, value.Substring(0, value.Length / 2), value.Substring(value.Length / 2, value.Length - (value.Length / 2)));
+        }
+
+        return new HtmlString(result);
+    }
+}
+
+@{
+    bool showTextOnMain = StaticBlockService.GetPagePartByKeyWithCache("TextOnMain").Content.Contains("Это тег H1") == false || SettingsMain.EnableInplace;
+}
+<div class="row body-content">
+    <div class="col-xs-12 site-body-main">
+        @Html.StaticBlock("mainpage_before_carousel")
+        <div class="slider-main-block">
+            <div class="row">
+                @Html.RenderModules("mainpage_after_carousel")
+                @Html.Action("Carousel", "Home")
+            </div>
+        </div>
+        @Html.Action("BrandCarousel", "Brand", new { count = 20 })
+        @if (showTextOnMain)
+        {
+            @Html.StaticBlock("TextOnMain")
+        }
+        @Html.RenderModules("mainpage_block")
+        @Html.Action("MainPageProducts", "Home")
+
+        @Html.StaticBlock("TextOnMain2")
+
+        <article class="products-specials-block products-specials-best cs-br-1">
+            <header class="products-specials-header">
+                <div class="h2 products-specials-best-h">@HightLight("Новости и Подписка")</div>
+            </header>
+            <div class="row">
+                <div class="col-xs home-news-list-col">
+                    @Html.Action("NewsBlock", "News")
+                </div>
+                <div class="col-xs-5 home-news-gift-col">
+                    @Html.Action("NewsSubscription", "News")
+
+                    @if (SettingsDesign.GiftSertificateVisibility && SettingsCheckout.EnableGiftCertificateService)
+                    {
+                    <div class="gift-block footer-gifts-item">
+                        <div class="gift-block__title">@T("GiftCertificate.GiftCertificate")</div>
+                        <a class="btn btn-middle btn-buy gift-btn" href="@Url.AbsoluteRouteUrl("GiftCertificate")">@T("GiftCertificate.Index.Buy")</a>
+                    </div>
+                    }
+
+                </div>
+                <div class="col-xs-12">
+                    <div class="blocks-on-main-horizontals margin-top-15">
+                        @Html.Partial("SocialWidget")
+
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</div>

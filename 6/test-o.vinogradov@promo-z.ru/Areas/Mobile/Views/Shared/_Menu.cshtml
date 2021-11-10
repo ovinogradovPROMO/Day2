@@ -1,0 +1,52 @@
+﻿@model AdvantShop.ViewModel.Common.MenuBlockViewModel
+
+
+@if (Model.Layout == "_ColumnsTwo")
+{
+    <div class="row rel big-z menu-block">
+        <div class="col-xs-3 col-p-v site-body-aside">
+            @Html.Action("MenuCatalog", "Catalog", new { InLayout = true, IsExpanded = false })
+        </div>
+        <div class="col-xs-9 col-p-v site-body-main">
+            <div class="site-menu-row cs-g-1 js-menu-general-block-orientation">
+                <div class="row flex-nowrap">
+                    @if (SettingsDesign.SearchBlockLocation == SettingsDesign.eSearchBlockLocation.CatalogMenu)
+                    {
+                        <div class="col-xs-9 flex-shrink flex-grow flex-basis-auto">
+                            @Html.Action("MenuGeneral", "Common")
+                        </div>
+                    
+                        <div class="col-xs-3"> @*col-searc-block-menu*@
+                            @Html.Action("SearchBlock", "Search")
+                        </div>
+                    }
+                    else{
+                        <div class="col-xs flex-shrink flex-grow flex-basis-auto">
+                            @Html.Action("MenuGeneral", "Common")
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.Layout == "_ColumnsOne")
+{
+    <div class="row rel big-z menu-block">
+        <div class="col-xs-12 col-p-v site-body-aside">
+            <div class="site-menu-row cs-g-1 js-menu-general-block-orientation">
+                <div class="row flex-nowrap">
+                    <div class="col-xs @(SettingsDesign.SearchBlockLocation == SettingsDesign.eSearchBlockLocation.CatalogMenu ? "site-menu-row-limiter":"")">
+                        @Html.Action("MenuGeneral", "Common")
+                    </div>
+                    @if (SettingsDesign.SearchBlockLocation == SettingsDesign.eSearchBlockLocation.CatalogMenu)
+                    {
+                        <div class="col-xs-3">@*col-searc-block-menu*@
+                            @Html.Action("SearchBlock", "Search")
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

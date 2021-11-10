@@ -1,0 +1,999 @@
+﻿@using AdvantShop.Orders
+@model AdvantShop.ViewModel.ProductDetails.ProductDetailsViewModel
+@{
+    var product = Model.Product;
+    var offer = Model.Offer;
+    var currentZone = AdvantShop.Repository.IpZoneContext.CurrentZone;
+}
+
+@Html.RenderModules("product_page_before", new { product, offer, Model.FinalPrice, Model.FinalDiscount })
+<div data-ng-init="product.loadData(@product.ProductId, @(Model.ColorId != null ?  Model.ColorId.ToString() : "null"), @(Model.SizeId != null ? Model.SizeId.ToString() : "null"), @Model.HidePrice.ToLowerString())"></div>
+<div class="col-p-v" @(Model.Product.Adult ? String.Empty : "itemscope itemtype=https://schema.org/Product")>
+    <div class="page-title-row details-title-row">
+		<h1 class="details-title page-title" @(Model.Product.Adult ? String.Empty : "itemprop=name") data-ng-init="product.productName='@Html.AttributeEncode(Html.GetPageH1())'" @Html.InplaceMeta(product.ProductId, AdvantShop.SEO.MetaType.Product)>@Html.GetPageH1()</h1>
+    </div>
+    @if (product.CategoryId==5660)
+    {
+    @Html.StaticBlock("fortest")
+    }
+    @Html.Action("BreadCrumbs", "Common", new { breadCrumbs = Model.BreadCrumbs })
+    <div class="row">
+        <div class="col-xs-12 details-block">
+            <div class="menu-dropdown-list cs-br-1" data-submenu-container="{'type': 'modern'}">
+                <div class="menu-dropdown-item cs-br-1 submenu-modern " data-submenu-parent="">
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 ">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/werkel">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Werkel
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-cats-only">
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/mekhanizmy" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Механизмы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/ramki" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Рамки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--index:1-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/vstraivaemye-serii">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Встраиваемые серии
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-cats-only">
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/rychazhnye" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Рычажные
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/samozazhimnye" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Самозажимные
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--index:1-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/klemmy-soedinitelnye">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Клеммы соединительные
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-cats-only">
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/belyi" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Белый
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/grafit-riflenyi" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Графит рифленый
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/serebryanyi" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Серебряный
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/slonovaya-kost" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Слоновая кость
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/chernyi-khrom" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Черный хром
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/shampan-riflenyi" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Шампань рифленый
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--index:5-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/nakladnaya-seriya-gallant">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Накладная серия Gallant
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-cats-only">
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/aksessuary-1" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Аксессуары
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/mekhanizmy-metallicheskie" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Механизмы металлические
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/nakladnye-mekhanizmy" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Накладные механизмы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/retro-ramki" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Ретро рамки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--index:3-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/nakladnaya-seriya-retro">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Накладная серия Retro
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern " data-submenu-parent="">
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 ">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/rozetochnye-bloki">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Розеточные блоки
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-cats-only">
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/apple-phones" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Apple
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/htc-phones" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        HTC
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/samsung-phones" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Samsung
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/nokia-phones" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Nokia
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/lenovo-phones" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Lenovo
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/aksessuary" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Аксессуары
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--index:5-->
+                                </div>
+
+                                <div class="menu-dropdown-sub-columns-item">
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-brand">
+                                        <div class="menu-dropdown-sub-brand-title">
+                                            <a href="http://localhost:8825/manufacturers" class="link-text-decoration menu-dropdown-sub-category-link">Производители</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/apple" class="link-text-decoration menu-dropdown-sub-link">Apple</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/deppa" class="link-text-decoration menu-dropdown-sub-link">DEPPA</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/gresso" class="link-text-decoration menu-dropdown-sub-link">Gresso</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/htc" class="link-text-decoration menu-dropdown-sub-link">HTC</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/lenovo" class="link-text-decoration menu-dropdown-sub-link">Lenovo</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/luxcase" class="link-text-decoration menu-dropdown-sub-link">LUXCASE</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/samsung" class="link-text-decoration menu-dropdown-sub-link">Samsung</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/phones">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Телефоны
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block">
+                                        <div class="menu-dropdown-sub-category-name">
+                                            <a href="http://localhost:8825/categories/pc" class="menu-dropdown-sub-category-link">
+                                                <span class="menu-dropdown-sub-category-text">
+                                                    Компьютер
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-childs">
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/lcd" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        LCD мониторы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/ssd" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        SSD
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/hdd" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Винчестеры
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/videocards" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Видеокарты
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/keyboards" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Клавиатуры
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/speakers" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Колонки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/motherboards" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Материнские платы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/memory" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Модули памяти
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/headphones" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Наушники и микрофоны
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/laptops" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Ноутбуки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/printers" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Принтеры
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/cpu" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Процессоры
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="menu-dropdown-sub-block">
+                                        <div class="menu-dropdown-sub-category-name">
+                                            <a href="http://localhost:8825/categories/consoles" class="menu-dropdown-sub-category-link">
+                                                <span class="menu-dropdown-sub-category-text">
+                                                    Игровые приставки
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-childs">
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/xbox-one" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Xbox One
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/playstation3" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        PlayStation 3
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/sony-playstation-4" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        PlayStation 4
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/xbox360" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Xbox 360
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/wii" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Nintendo Wii
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/psp" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        PSP
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/old" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Раритет
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/aksessuary-dlia-igrovykh-pristavok" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Аксессуары для игровых приставок
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="menu-dropdown-sub-block">
+                                        <div class="menu-dropdown-sub-category-name">
+                                            <a href="http://localhost:8825/categories/tv" class="menu-dropdown-sub-category-link">
+                                                <span class="menu-dropdown-sub-category-text">
+                                                    Телевизоры
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-childs">
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/lg-tv" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        LG
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/panasonictv" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Panasonic
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/philipstv" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Philips
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/samsung-tv" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Samsung
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/sony-tv" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Sony
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="menu-dropdown-sub-block">
+                                        <div class="menu-dropdown-sub-category-name">
+                                            <a href="http://localhost:8825/categories/fotovideo" class="menu-dropdown-sub-category-link">
+                                                <span class="menu-dropdown-sub-category-text">
+                                                    Фото и Видео
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-childs">
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/videokamery" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Видеокамеры
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/zerkalnye-fotoapparaty" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Зеркальные фотоаппараты
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/tsifrovye-fotoramki" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Цифровые фоторамки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/cameras" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Компактные цифровые фотоаппараты
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/tech">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Техника
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block">
+                                        <div class="menu-dropdown-sub-category-name">
+                                            <a href="http://localhost:8825/categories/zhenskaia" class="menu-dropdown-sub-category-link">
+                                                <span class="menu-dropdown-sub-category-text">
+                                                    Женская
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-childs">
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/platia" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Платья
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/wdzhinsy" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Джинсы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/tufli" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Туфли
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/dzhempery" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Джемперы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="menu-dropdown-sub-block">
+                                        <div class="menu-dropdown-sub-category-name">
+                                            <a href="http://localhost:8825/categories/muzhskaia" class="menu-dropdown-sub-category-link">
+                                                <span class="menu-dropdown-sub-category-text">
+                                                    Мужская
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-childs">
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/dzhinsy" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Джинсы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/kostiumy" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Костюмы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/rubashki" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Рубашки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/mtufli" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Туфли
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-dropdown-sub-category">
+                                                <a href="http://localhost:8825/categories/mfutbolki" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Футболки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="menu-dropdown-sub-columns-item">
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-brand">
+                                        <div class="menu-dropdown-sub-brand-title">
+                                            <a href="http://localhost:8825/manufacturers" class="link-text-decoration menu-dropdown-sub-category-link">Производители</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/armani" class="link-text-decoration menu-dropdown-sub-link">Armani</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/calvin_klein" class="link-text-decoration menu-dropdown-sub-link">Calvin Klein</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/just-female" class="link-text-decoration menu-dropdown-sub-link">JUST FEMALE</a>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <a href="http://localhost:8825/manufacturers/wrangler" class="link-text-decoration menu-dropdown-sub-link">Wrangler</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/odezhdaobuv">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Одежда/Обувь
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-cats-only">
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/avtokresla" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Автокресла
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/velosipedy" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Велосипеды
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/igrushki" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Игрушки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/koliaski" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Коляски
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/krovatki" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Кроватки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--index:4-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/detskie_tovary">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Детские товары
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-cats-only">
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/cactus" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Кактусы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/compositions" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Композиции
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/roses" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Розы
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--index:2-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/flowers">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Цветы
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-dropdown-item cs-br-1 submenu-modern parent" data-submenu-parent="">
+                    <div class="menu-dropdown-sub ng-hide" data-submenu="" data-ng-show="submenu.isSubmenuVisible">
+                        <div class="menu-dropdown-sub-inner cs-bg-7">
+                            <div class="menu-dropdown-sub-columns">
+                                <div class="menu-dropdown-sub-columns-item">
+
+                                    <div class="menu-dropdown-sub-block menu-dropdown-sub-block-cats-only">
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/drinks" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Безалкогольные напитки
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/cocktails" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Коктейли
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/sea" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Морепродукты
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/ice-cream" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Мороженное
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/pizza" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Пицца
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="menu-dropdown-sub-category">
+                                            <div class="menu-dropdown-sub-childs">
+                                                <a href="http://localhost:8825/categories/fruits" class="menu-dropdown-sub-link">
+                                                    <span class="menu-dropdown-sub-category-text">
+                                                        Фрукты
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--index:5-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-dropdown-link-wrap cs-bg-i-7 icon-right-open-after-abs">
+
+                        <a class="menu-dropdown-link" href="http://localhost:8825/categories/food">
+                            <span class="menu-dropdown-link-text text-floating">
+                                Еда/Напитки
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">
+
+                    @Html.StaticBlock("catalog")
+                </div>
+                <div class="col-xs-5">
+
+                    @Html.Action("ProductPhotos", new { productModel = Model, enabledModalPreview = true })
+                </div>
+                <div class="col-xs">
+                    @Html.Partial("ProductInfo", Model)
+                    <!---->
+                    <aside class="details-aside">
+                        @Html.StaticBlock("bannerDetails")
+
+
+                    </aside>
+                    <!---->
+                </div>
+                @if (product.Brand != null && product.Brand.Enabled && product.Brand.BrandLogo != null && product.Brand.BrandLogo.PhotoName.IsNotEmpty())
+                {
+                    <div class="col-xs-2">
+                        <figure class="details-brand">
+                            <a href="@Url.RouteUrl("Brand", new { url = product.Brand.UrlPath })" class="details-brand-link">
+                                <img class="details-brand-link" src="@product.Brand.BrandLogo.ImageSrc()" alt="@Html.Encode(product.Brand.Name)" />
+                            </a>
+                        </figure>
+                    </div>
+                }
+            </div>
+            <div>
+
+                @Html.RenderModules("product_middle", new { product, offer })
+                @Html.Action("ProductTabs", Model)
+            </div>
+            <div class="details-row">
+                @Html.Action("RelatedProducts", new { Model.Product, type = "Related" })
+            </div>
+            <div class="details-row">
+                @Html.Action("RelatedProducts", new { Product = product, type = "Alternative" })
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+ @Html.StaticBlock("fortest")

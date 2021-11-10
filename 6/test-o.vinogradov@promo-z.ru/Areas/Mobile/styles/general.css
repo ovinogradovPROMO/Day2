@@ -1,0 +1,58 @@
+@media(max-width:500px){
+.table-responsive-scroll-wrap .prod-text{width:90%}
+/*для блоков "Доставка", модуля "комплекты товаров" в мобилке скрыла, ибо съезжали влево*/
+/*.block-exuding-row {margin-left: -1.33333em;}*/
+}
+
+.catalog-search-btn {
+    top: 0;
+    right: .5rem;
+}
+
+.catalog-search-placeholder input {
+    padding-right: 42px;
+}
+
+.autocompleter-list-item.autocompleter-list-item-footer {
+    border: 0;
+}
+
+.autocompleter-sub {
+    left: 13px !important;
+    right: 13px !important;
+}
+
+.js-click-out > input {
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.mobile-tabs-vertical .tabs-header-item-link {
+    background-color: #96969a;
+}
+
+.color-viewer-item {
+    font-size: 12px;
+    line-height: 1;
+}
+
+.cart-popup-modal .cart-popup-related-block .carousel-colors-wrap {
+    font-size: inherit;
+}
+
+.cart-popup-related-block .carousel-nav .carousel-nav-inside {
+    color: #e8e8e8;
+    font-size: 7px;
+}
+
+.cart-link{
+    color: white;
+}
+
+#layout .ONwrap {
+    color: white;
+    text-shadow: 1px 0px 0.25rem #000;
+}
+
+#layout .ONtoday, #layout .ONdate{
+    color: #d7d7d7;
+}

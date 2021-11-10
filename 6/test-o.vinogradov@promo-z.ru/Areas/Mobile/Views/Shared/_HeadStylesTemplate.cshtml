@@ -1,0 +1,25 @@
+﻿@{
+    var list = new List<string>()
+{
+    "~/templates/" + SettingsDesign.Template + "/fonts/fonts.css",
+    "~/templates/" + SettingsDesign.Template + "/vendors/fontello/css/adv_tpl.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/general.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/common/inputs.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/common/headers.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/common/buttons.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/common/custom-input.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/toolbar-top.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/header.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/menu-general.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/menu-dropdown.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/partials/breads.css",
+    "~/templates/" + SettingsDesign.Template + "/scripts/_partials/cart/styles/cart.css",
+    "~/templates/" + SettingsDesign.Template + "/scripts/_partials/product-view/styles/product-view.css",
+    "~/templates/" + SettingsDesign.Template + "/styles/views/product.css",
+    
+};
+
+    Html.AddBundles(list, "main.css");
+
+    Html.AddBundles(list, "main_without_design.css");
+}

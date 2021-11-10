@@ -1,0 +1,27 @@
+﻿@using AdvantShop.Design
+@using AdvantShop.Configuration
+@{
+    var prefix = !string.IsNullOrEmpty(SettingsDesign.MobileTemplate) ? "_" + SettingsDesign.MobileTemplate.ToLower() : "";
+
+    var bundleNameMobileCss = "mobile" + prefix + ".css";
+    var bundleNameMobileJs = "mobile" + prefix + ".js";
+}
+
+@{
+    Html.AddBundles(new List<string>
+{
+"~/templates/" + SettingsDesign.Template + "/styles/extra-mobile.css",
+"~/templates/" + SettingsDesign.Template + "/Areas/Mobile/styles/partials/product-view.css",
+"~/templates/" + SettingsDesign.Template + "/Areas/Mobile/styles/views/catalog.css",
+"~/templates/" + SettingsDesign.Template + "/Areas/Mobile/styles/general.css"
+
+}, bundleNameMobileCss);
+
+
+    Html.AddBundles(new List<string>
+    {
+
+
+
+    }, "mobile.js");
+}

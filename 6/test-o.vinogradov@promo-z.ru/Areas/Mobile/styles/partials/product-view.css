@@ -1,0 +1,17 @@
+.prod-photo-inner {
+    width: 100%;
+}
+.products-view-name-default:after, 
+.products-view-name-slim:after, 
+.products-specials-category:after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), black 70%);
+}
+
+.cart-popup-related-block .color-viewer-inner {
+    color: #e8e8e8;
+}
+
+.cart-popup-carousel .cart-popup-related-block .color-viewer-item {
+    border: 1px transparent solid;
+    box-sizing: border-box;
+}

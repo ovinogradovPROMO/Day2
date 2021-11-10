@@ -1,0 +1,30 @@
+﻿@model List<AdvantShop.CMS.BreadCrumbs>
+<div class="breads" itemscope itemtype="http://schema.org/BreadcrumbList">
+    @for (var i = 0; i < Model.Count; ++i)
+    {
+        if (!string.IsNullOrEmpty(Model[i].Url) && i != Model.Count - 1)
+        {
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="breads-item icon-right-open-after">
+        @if (i == 0)
+            {
+                <svg class="cs-t-6 breads-item-icon" width="21" height="21" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 512 456" xml:space="preserve">
+                <path fill="currentColor" d="M506.8,180L263.9,2.4c-4.7-3.4-11-3.4-15.7,0L5.2,180c-5.9,4.3-7.2,12.7-2.9,18.6c4.3,5.9,12.7,7.2,18.6,2.9
+			                L256,29.6l235,171.8c2.4,1.7,5.1,2.6,7.9,2.6c4.1,0,8.1-1.9,10.8-5.4C514,192.7,512.7,184.4,506.8,180z M442.4,204.5
+			                c-7.4,0-13.3,6-13.3,13.3v211.6H322.6V313.9c0-36.7-29.9-66.5-66.6-66.5s-66.6,29.8-66.6,66.5v115.5H82.9V217.8
+			                c0-7.3-6-13.3-13.3-13.3c-7.4,0-13.3,6-13.3,13.3v224.9c0,7.3,6,13.3,13.3,13.3h133.1c7,0,12.7-5.4,13.3-12.3c0-0.3,0.1-0.7,0.1-1
+			                V313.9c0-22,17.9-39.9,39.9-39.9c22,0,39.9,17.9,39.9,39.9v128.8c0,0.4,0,0.7,0.1,1c0.5,6.9,6.3,12.3,13.3,12.3h133.1
+			                c7.4,0,13.3-6,13.3-13.3V217.8C455.7,210.4,449.8,204.5,442.4,204.5z"></path>
+                        </svg>
+        }
+        <a itemprop="item" href="@Model[i].Url" class="breads-item-link cs-l-2">
+            <span itemprop="name">@Model[i].Name</span>
+        </a>
+    </div>
+        }
+        else
+        {
+            <div class="breads-item"><span class="breads-item-current cs-t-3">@Model[i].Name</span></div>
+        }
+    }
+</div>
